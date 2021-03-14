@@ -1,5 +1,6 @@
 from trello import TrelloClient
 
+from function import todays_event
 
 import os
 import configparser
@@ -30,12 +31,12 @@ everyday_todo = ['読書', 'Atcoder', '就活に時間を当てよう', 'python�
 
 #授業はここへ/または曜日事のtodoはここへ
 classes = {
-    "Mon":['Risk Management', 'Data Science Concept'],
-    "Tue":['Discrete Mathmatics'],
-    "Wed":['Risk Management'],
-    "Thu":['Computer Language'],
-    "Fri":['Risk Management', 'Network Security'],
-    "Sat":[],
+    "Mon":[],
+    "Tue":[],
+    "Wed":[],
+    "Thu":[],
+    "Fri":[],
+    "Sat":['Skin Care'],
     "Sun":[],
 }
 
@@ -55,6 +56,12 @@ yobi = dt_now.strftime('%a')
 
 #毎日のtodoをtodoリストに入れる。
 for card in everyday_todo:
+    todo_list.add_card(card)
+
+#本日の予定をgoogle calendarから読み込んでボードに追加
+today_schedule = todays_event()
+
+for card in today_schedule:
     todo_list.add_card(card)
 
 #曜日ごとの授業をtodoに入れる。
