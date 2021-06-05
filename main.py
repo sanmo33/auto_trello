@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 from trello import TrelloClient
 
 from function import todays_event
@@ -27,9 +29,9 @@ client = TrelloClient(
 )
 
 #毎日行うtodoはここへ
-everyday_todo = ['読書', 'Atcoder', '就活に時間を当てよう', 'pythonの勉強']
+everyday_todo = ['読書', 'Atcoder','pythonの勉強', 'サプリメント', 'プロテイン','筋肉 or ランニング','DMM英会話','iknow','自己肯定日記を書く']
 
-#授業はここへ/または曜日事のtodoはここへ
+#授業/曜日ごとのtodoはここへ
 classes = {
     "Mon":[],
     "Tue":[],
@@ -46,6 +48,12 @@ board_id = os.environ["id_board"]
 #0番目にtodoリストがあるのでboard.list_lists()[0]をtodo_listに入れる。
 board = client.get_board(board_id)
 todo_list = board.list_lists()[0]
+done_list = board.list_lists()[1]
+
+#TodoがemptyだったらDoneをemptyにする
+if todo_list.list_cards() == []:
+    done_list.archive_all_cards()
+
 
 #前日までのtodoをアーカイブする
 todo_list.archive_all_cards()
